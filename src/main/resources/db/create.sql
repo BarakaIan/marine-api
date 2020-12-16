@@ -1,3 +1,3 @@
-CREATE DATABASE marine-api;
-\c marine-api;
-CREATE TABLE comments(id serial int, content varchar);
+CREATE DATABASE marine_api;
+\c marine_api;
+CREATE TABLE comments(id serial PRIMARY KEY, content varchar);
