@@ -13,6 +13,7 @@ public class App {
         }
         return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
     }
+
     public static void main(String[] args) {
         port(getHerokuAssignedPort());
         Sql2oCommentDao commentDao = new Sql2oCommentDao(DB.sql2o);
@@ -20,7 +21,7 @@ public class App {
         Gson gson = new Gson();
 
 
-        post("/comment/new","application/json",(req,res)->{
+        post("/comments/new", "application/json", (req, res) -> {
             Comment comment = gson.fromJson(req.body(), Comment.class);
             commentDao.add(comment);
             res.status(400);
@@ -28,16 +29,15 @@ public class App {
             return gson.toJson(comment);
         });
 
-        get("/comment", "application/json", (req, res) -> { //accept a request in format JSON from an app
+        get("/comments", "application/json", (req, res) -> { //accept a request in format JSON from an app
             res.type("application/json");
             return gson.toJson(commentDao.getAll());//send it back to be displayed
         });
-        after((req, res) ->{
+        after((req, res) -> {
             res.type("application/json");
         });
 
     }
-
 
 
 }
