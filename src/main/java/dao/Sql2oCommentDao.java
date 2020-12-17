@@ -14,7 +14,7 @@ public class Sql2oCommentDao implements CommentDao {
     }
     @Override
     public void add(Comment comment) {
-        String sql = "INSERT INTO comments (content) VALUES (:content)";
+        String sql = "INSERT INTO comments (comment) VALUES (:comment)";
         try (Connection con = sql2o.open()) {
             int id = (int) con.createQuery(sql, true)
                     .bind(comment)
@@ -42,26 +42,26 @@ public class Sql2oCommentDao implements CommentDao {
                     .executeAndFetchFirst(Comment.class);
         }
     }
-
-    @Override
-    public void deleteById(int id) {
-        String sql = "DELETE from comments WHERE id = :id";
-        try (Connection con = sql2o.open()) {
-            con.createQuery(sql)
-                    .addParameter("id", id)
-                    .executeUpdate();
-        } catch (Sql2oException ex){
-            System.out.println(ex);
-        }
-    }
-
-    @Override
-    public void clearAll() {
-        String sql = "DELETE from comments";
-        try (Connection con = sql2o.open()) {
-            con.createQuery(sql).executeUpdate();
-        } catch (Sql2oException ex) {
-            System.out.println(ex);
-        }
-    }
+//
+//    @Override
+//    public void deleteById(int id) {
+//        String sql = "DELETE from comments WHERE id = :id";
+//        try (Connection con = sql2o.open()) {
+//            con.createQuery(sql)
+//                    .addParameter("id", id)
+//                    .executeUpdate();
+//        } catch (Sql2oException ex){
+//            System.out.println(ex);
+//        }
+//    }
+//
+//    @Override
+//    public void clearAll() {
+//        String sql = "DELETE from comments";
+//        try (Connection con = sql2o.open()) {
+//            con.createQuery(sql).executeUpdate();
+//        } catch (Sql2oException ex) {
+//            System.out.println(ex);
+//        }
+//    }
 }

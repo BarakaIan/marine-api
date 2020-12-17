@@ -3,6 +3,8 @@ import dao.Sql2oCommentDao;
 import models.Comment;
 import org.sql2o.Connection;
 
+import java.util.List;
+
 import static spark.Spark.*;
 
 public class App {
@@ -31,8 +33,22 @@ public class App {
 
         get("/comments", "application/json", (req, res) -> { //accept a request in format JSON from an app
             res.type("application/json");
-            return gson.toJson(commentDao.getAll());//send it back to be displayed
+            if (commentDao.getAll().size() == 0){
+                return "{\"message\":\"I'm sorry, but no comments yet added.\"}";
+            } else{
+                return gson.toJson(commentDao.getAll());//send it back to be displayed
+            }
         });
+
+        get("/comments/:id", "application/json", (req, res) -> {
+            int commentId = Integer.parseInt(req.params("id"));
+            Comment commentToFind = commentDao.findById(commentId);
+            if (commentToFind == null){
+                throw new ApiException(404, String.format("No user with the id: \"%s\" exists", req.params("id")));
+            }
+            return gson.toJson(commentToFind);
+        });
+
         after((req, res) -> {
             res.type("application/json");
         });
