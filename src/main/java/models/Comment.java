@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Comment {
     private int id;
-    private String content;
+    private String comment;
 
     public int getId() {
         return id;
@@ -14,16 +14,16 @@ public class Comment {
         this.id = id;
     }
 
-    public String getContent() {
-        return content;
+    public String getComment() {
+        return comment;
     }
 
-    public void setContent(String content) {
-        content = content;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
-    public Comment(String content) {
-        this.content = content;
+    public Comment(String comment) {
+        this.comment = comment;
     }
 
     @Override
@@ -32,11 +32,11 @@ public class Comment {
         if (o == null || getClass() != o.getClass()) return false;
         Comment comment = (Comment) o;
         return id == comment.id &&
-                content.equals(comment.content);
+                comment.equals(comment.comment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, content);
+        return Objects.hash(id, comment);
     }
 }

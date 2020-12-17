@@ -8,6 +8,6 @@ public interface CommentDao {
     void add(Comment comment);
     List<Comment> getAll();
     Comment findById(int id);
-    void deleteById(int id);
-    void clearAll();
+//    void deleteById(int id);
+//    void clearAll();
 }
